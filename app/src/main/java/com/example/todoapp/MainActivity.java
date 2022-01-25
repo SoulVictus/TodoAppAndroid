@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new TodoViewModel(getApplication());
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerViewAdapter = new TodosRecyclerViewAdapter();
+        recyclerViewAdapter = new TodosRecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

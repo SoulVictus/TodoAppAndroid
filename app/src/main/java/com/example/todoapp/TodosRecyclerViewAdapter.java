@@ -1,5 +1,7 @@
 package com.example.todoapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.database.Todo;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class TodosRecyclerViewAdapter extends RecyclerView.Adapter<TodosRecyclerViewAdapter.ViewHolder>{
     private List<Todo> todoList;
+    private Context context;
+
+    public TodosRecyclerViewAdapter(Context context) {
+        this.context = context;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView titleTextView;
@@ -52,6 +61,15 @@ public class TodosRecyclerViewAdapter extends RecyclerView.Adapter<TodosRecycler
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.getTitleTextView().setText(todoList.get(position).getTitle());
+
+        viewHolder.getTitleTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent detailsActicvityIntent = new Intent(context, TodoDetailsActivity.class);
+                detailsActicvityIntent.putExtra("todoPosition", viewHolder.getAdapterPosition());
+                context.startActivity(detailsActicvityIntent);
+            }
+        });
     }
 
     @Override

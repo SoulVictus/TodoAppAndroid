@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/STUDIA/SEMESTR 5/TodoAppAndroid/app/src/main/res/layout-land/todo_details.xml" value="0.33" />
         <entry key="..\:/STUDIA/SEMESTR 5/TodoAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/STUDIA/SEMESTR 5/TodoAppAndroid/app/src/main/res/layout/todo_details.xml" value="0.36666666666666664" />
         <entry key="..\:/STUDIA/SEMESTR 5/TodoAppAndroid/app/src/main/res/layout/todo_row.xml" value="0.5" />
       </map>
     </option>
