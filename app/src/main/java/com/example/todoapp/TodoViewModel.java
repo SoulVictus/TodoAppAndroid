@@ -22,6 +22,18 @@ public class TodoViewModel extends ViewModel {
         return todoList;
     }
 
+    void addTodo(Todo todo) {
+        repository.addTodo(todo);
+    }
+
+    void updateTodo(Todo todo) {
+        repository.updateTodo(todo);
+    }
+
+    void deleteTodo(Todo todo) {
+        repository.deleteTodo(todo);
+    }
+
     public void createDummyData() {
         repository.createDummyDataset();
     }

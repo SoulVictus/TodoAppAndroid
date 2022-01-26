@@ -7,26 +7,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="66dp"
-        android:layout_marginLeft="1"
-        android:layout_marginRight="1"
         android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/isDoneListCheckBox"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:minWidth="0dp"
+            android:minHeight="0dp" />
 
         <TextView
             android:id="@+id/todoTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="TextView" />
-
-        <ImageButton
-            android:id="@+id/editImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
 
         <ImageButton
             android:id="@+id/deleteImageButton"
@@ -34,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            android:backgroundTint="#FFFFFF"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     </LinearLayout>
 </FrameLayout>

@@ -26,10 +26,22 @@ public class TodosRepository {
         return todosList;
     }
 
+    public void addTodo(Todo todo) {
+        todosDao.insertTodo(todo);
+    }
+
+    public void updateTodo(Todo todo) {
+        todosDao.updateTodo(todo);
+    }
+
+    public void deleteTodo(Todo todo) {
+        todosDao.deleteTodo(todo);
+    }
+
     public void createDummyDataset() {
         for (int i = 0; i < 10; i++) {
             String title = MessageFormat.format("Title {0}", i);
-            String description =  "";
+            String description =  "TEST DESCRIPTION";
             Date date = new Date();
             boolean done = false;
             Todo newTodo = new Todo(title, description, date, done);

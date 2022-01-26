@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ public class TodoDetailsActivity extends AppCompatActivity {
     TextView titleTextView;
     TextView descriptionTextView;
     TextView dateTextView;
+    CheckBox isDoneCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class TodoDetailsActivity extends AppCompatActivity {
         titleTextView = findViewById(R.id.titleTextView);
         descriptionTextView = findViewById(R.id.descriptionTextView);
         dateTextView = findViewById(R.id.dateTextView);
+        isDoneCheckBox = findViewById(R.id.isDoneCheckBox);
 
         viewModel = new TodoViewModel(getApplication());
 
@@ -43,9 +47,18 @@ public class TodoDetailsActivity extends AppCompatActivity {
                 titleTextView.setText(currentTodo.getTitle());
                 descriptionTextView.setText(currentTodo.getDescription());
                 dateTextView.setText(currentTodo.getDate().toString());
+                isDoneCheckBox.setChecked(currentTodo.isDone());
             }
         });
 
-
+        isDoneCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentTodo.setDone(isChecked);
+                viewModel.updateTodo(currentTodo);
+            }
+        });
     }
+
+
 }
