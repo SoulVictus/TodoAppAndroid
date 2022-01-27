@@ -17,13 +17,30 @@
             android:minWidth="0dp"
             android:minHeight="0dp" />
 
-        <TextView
-            android:id="@+id/todoTitleTextView"
+        <LinearLayout
+            android:id="@+id/todoDataLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="TextView" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/todoTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/todoDateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/deleteImageButton"

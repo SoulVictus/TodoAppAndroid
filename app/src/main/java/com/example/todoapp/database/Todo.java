@@ -6,7 +6,11 @@ import androidx.room.TypeConverters;
 
 import com.example.todoapp.database.typeconverters.DateConverter;
 
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @Entity(tableName = "todos")
 public class Todo {
@@ -59,6 +63,11 @@ public class Todo {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFormattedDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(date);
     }
 
     public boolean isDone() {

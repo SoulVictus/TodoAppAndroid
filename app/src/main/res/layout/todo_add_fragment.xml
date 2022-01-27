@@ -7,10 +7,11 @@
     android:background="#2F000000">
 
     <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="440dp"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:orientation="vertical"
+        android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -25,39 +26,41 @@
             android:id="@+id/titleInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:text="set your task!"></EditText>
+            android:layout_marginBottom="10dp"
+            android:hint="set your task!"
+            android:inputType="text"></EditText>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="Description"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/descriptionInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="more detailed description!"
             android:inputType="text"
             android:lines="8"
             android:minLines="6"
-            android:scrollHorizontally="false"
-            android:text="more detailed description"></EditText>
+            android:scrollbars="vertical"
+            android:scrollHorizontally="false"></EditText>
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="Date"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/editTextDate"
-            android:layout_width="match_parent"
+        <CalendarView
+            android:id="@+id/dateInput"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date" />
+            android:layout_gravity="center" />
 
         <LinearLayout
             android:layout_width="match_parent"

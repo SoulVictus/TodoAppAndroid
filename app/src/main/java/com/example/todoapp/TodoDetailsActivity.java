@@ -45,8 +45,13 @@ public class TodoDetailsActivity extends AppCompatActivity {
             public void onChanged(List<Todo> todos) {
                 currentTodo = todos.get(postion);
                 titleTextView.setText(currentTodo.getTitle());
+                titleTextView.setTextColor(
+                        currentTodo.isDone() ?
+                                getResources().getColor(R.color.design_default_color_secondary)
+                                : getResources().getColor(R.color.black));
+
                 descriptionTextView.setText(currentTodo.getDescription());
-                dateTextView.setText(currentTodo.getDate().toString());
+                dateTextView.setText(currentTodo.getFormattedDate());
                 isDoneCheckBox.setChecked(currentTodo.isDone());
             }
         });

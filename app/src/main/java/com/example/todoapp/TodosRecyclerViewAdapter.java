@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.lifecycle.LiveData;
@@ -19,6 +20,7 @@ import com.example.todoapp.database.Todo;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
 import java.util.List;
 
 public class TodosRecyclerViewAdapter extends RecyclerView.Adapter<TodosRecyclerViewAdapter.ViewHolder>{
@@ -33,20 +35,28 @@ public class TodosRecyclerViewAdapter extends RecyclerView.Adapter<TodosRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView titleTextView;
+        private TextView dateTextView;
         private CheckBox isDoneCheckBox;
         private ImageButton deleteButton;
+        private LinearLayout todoDataLayout;
 
         public ViewHolder(View view) {
             super(view);
 
             titleTextView = (TextView) view.findViewById(R.id.todoTitleTextView);
+            dateTextView = (TextView) view.findViewById(R.id.todoDateTextView);
             isDoneCheckBox = (CheckBox) view.findViewById(R.id.isDoneListCheckBox);
             deleteButton = (ImageButton) view.findViewById(R.id.deleteImageButton);
+            todoDataLayout = (LinearLayout) view.findViewById(R.id.todoDataLayout);
         }
 
         public TextView getTitleTextView() {
             return titleTextView;
         }
+
+        public TextView getDateTextView() { return dateTextView; }
+
+        public LinearLayout getTodoDataLayout() { return todoDataLayout; }
 
         public CheckBox getIsDoneCheckBox() { return isDoneCheckBox; }
 
@@ -66,7 +76,9 @@ public class TodosRecyclerViewAdapter extends RecyclerView.Adapter<TodosRecycler
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Todo currentTodo = todoList.get(viewHolder.getAdapterPosition());
         viewHolder.getTitleTextView().setText(currentTodo.getTitle());
-        viewHolder.getTitleTextView().setOnClickListener(new View.OnClickListener() {
+        viewHolder.getTitleTextView().setTextColor(context.getResources().getColor(currentTodo.isDone() ? R.color.design_default_color_secondary: R.color.black));
+        
+        viewHolder.getTodoDataLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent detailsActivityIntent = new Intent(context, TodoDetailsActivity.class);
@@ -74,6 +86,12 @@ public class TodosRecyclerViewAdapter extends RecyclerView.Adapter<TodosRecycler
                 context.startActivity(detailsActivityIntent);
             }
         });
+
+        viewHolder.getDateTextView().setText(currentTodo.getFormattedDate());
+        viewHolder.getDateTextView().setTextColor(
+                (!currentTodo.isDone() && currentTodo.getDate().before(new Date())) ?
+                        context.getResources().getColor(R.color.red) : context.getResources().getColor(R.color.black)
+        );
 
         viewHolder.getIsDoneCheckBox().setOnCheckedChangeListener(null);
         viewHolder.getIsDoneCheckBox().setChecked(currentTodo.isDone());

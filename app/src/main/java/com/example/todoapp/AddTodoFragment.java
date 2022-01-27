@@ -1,31 +1,40 @@
 package com.example.todoapp;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.example.todoapp.database.Todo;
 
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddTodoFragment extends DialogFragment {
     TodoViewModel viewModel;
 
     Button addButton;
     Button cancelButton;
-
     EditText titleInput;
     EditText descriptionInput;
-    EditText dateInput;
+    CalendarView dateInput;
 
+    Date date = new Date();
+
+    public AddTodoFragment() {}
     public AddTodoFragment(TodoViewModel viewModel) {
         this.viewModel = viewModel;
     }
@@ -38,16 +47,31 @@ public class AddTodoFragment extends DialogFragment {
 
         addButton = (Button) inflatedView.findViewById(R.id.addButton);
         cancelButton = (Button) inflatedView.findViewById(R.id.cancelButton);
+
         titleInput = (EditText) inflatedView.findViewById(R.id.titleInput);
         descriptionInput = (EditText) inflatedView.findViewById(R.id.descriptionInput);
-        dateInput = (EditText) inflatedView.findViewById(R.id.editTextDate);
+        dateInput = (CalendarView) inflatedView.findViewById(R.id.dateInput);
+        dateInput.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                String dateString = String.format(Locale.ENGLISH, "%d-%d-%d", dayOfMonth, month+1, year);
+                SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                try {
+                    date = sfd.parse(dateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String title = titleInput.getText().toString();
+                if (title.isEmpty())
+                    title = getResources().getString(R.string.default_todo_title);
+
                 String description = descriptionInput.getText().toString();
-                Date date = new Date();
                 viewModel.addTodo(new Todo(title, description, date, false));
                 closeFragment();
             }
