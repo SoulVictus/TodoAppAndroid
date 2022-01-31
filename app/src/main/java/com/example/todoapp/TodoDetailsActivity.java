@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.todoapp.database.Todo;
 
+import java.util.Date;
 import java.util.List;
 
 public class TodoDetailsActivity extends AppCompatActivity {
@@ -33,13 +34,11 @@ public class TodoDetailsActivity extends AppCompatActivity {
         titleTextView = findViewById(R.id.titleTextView);
         descriptionTextView = findViewById(R.id.descriptionTextView);
         dateTextView = findViewById(R.id.dateTextView);
-        isDoneCheckBox = findViewById(R.id.isDoneCheckBox);
-
-        viewModel = new TodoViewModel(getApplication());
 
         Intent intent = getIntent();
         int postion = intent.getIntExtra("todoPosition", 0);
 
+        viewModel = new TodoViewModel(getApplication());
         viewModel.getTodoList().observe(this, new Observer<List<Todo>>() {
             @Override
             public void onChanged(List<Todo> todos) {
@@ -52,10 +51,15 @@ public class TodoDetailsActivity extends AppCompatActivity {
 
                 descriptionTextView.setText(currentTodo.getDescription());
                 dateTextView.setText(currentTodo.getFormattedDate());
+                dateTextView.setTextColor(
+                        (!currentTodo.isDone() && currentTodo.getDate().before(new Date())) ?
+                                getResources().getColor(R.color.red)
+                                : getResources().getColor(R.color.black));
                 isDoneCheckBox.setChecked(currentTodo.isDone());
             }
         });
 
+        isDoneCheckBox = findViewById(R.id.isDoneCheckBox);
         isDoneCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

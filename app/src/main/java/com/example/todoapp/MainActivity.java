@@ -38,12 +38,13 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getTodoList().observe(this, new Observer<List<Todo>>() {
             @Override
             public void onChanged(List<Todo> todos) {
-                if (todos == null || todos.isEmpty()) {
-                    viewModel.createDummyData();
-                }
-                else {
-                    recyclerViewAdapter.setViewData(todos);
-                }
+                recyclerViewAdapter.setViewData(todos);
+//                if (todos == null || todos.isEmpty()) {
+//                    viewModel.createDummyData();
+//                }
+//                else {
+//                    recyclerViewAdapter.setViewData(todos);
+//                }
             }
         });
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         addTodoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddTodoFragment fragment = new AddTodoFragment(viewModel);
+                AddTodoFragment fragment = new AddTodoFragment();
                 fragment.show(getSupportFragmentManager(), "AddTodoFragment");
             }
         });

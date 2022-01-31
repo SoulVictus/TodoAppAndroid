@@ -35,21 +35,39 @@ public class AddTodoFragment extends DialogFragment {
     Date date = new Date();
 
     public AddTodoFragment() {}
-    public AddTodoFragment(TodoViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View inflatedView = inflater.inflate(R.layout.todo_add_fragment, container, false);
+        viewModel = new TodoViewModel(getActivity().getApplication());
 
         addButton = (Button) inflatedView.findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = titleInput.getText().toString();
+                if (title.isEmpty())
+                    title = getResources().getString(R.string.default_todo_title);
+                String description = descriptionInput.getText().toString();
+                viewModel.addTodo(new Todo(title, description, date, false));
+                closeFragment();
+            }
+        });
+
         cancelButton = (Button) inflatedView.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeFragment();
+            }
+        });
+
 
         titleInput = (EditText) inflatedView.findViewById(R.id.titleInput);
         descriptionInput = (EditText) inflatedView.findViewById(R.id.descriptionInput);
+
         dateInput = (CalendarView) inflatedView.findViewById(R.id.dateInput);
         dateInput.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -64,31 +82,10 @@ public class AddTodoFragment extends DialogFragment {
             }
         });
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String title = titleInput.getText().toString();
-                if (title.isEmpty())
-                    title = getResources().getString(R.string.default_todo_title);
-
-                String description = descriptionInput.getText().toString();
-                viewModel.addTodo(new Todo(title, description, date, false));
-                closeFragment();
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeFragment();
-            }
-        });
-
         return inflatedView;
     }
 
     private void closeFragment() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
-
 }

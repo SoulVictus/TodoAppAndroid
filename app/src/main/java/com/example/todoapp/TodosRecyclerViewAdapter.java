@@ -75,9 +75,15 @@ public class TodosRecyclerViewAdapter extends RecyclerView.Adapter<TodosRecycler
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         Todo currentTodo = todoList.get(viewHolder.getAdapterPosition());
+
+        // if task is done, set title color to blue
         viewHolder.getTitleTextView().setText(currentTodo.getTitle());
-        viewHolder.getTitleTextView().setTextColor(context.getResources().getColor(currentTodo.isDone() ? R.color.design_default_color_secondary: R.color.black));
-        
+        viewHolder.getTitleTextView().setTextColor(
+                context.getResources().getColor(currentTodo.isDone() ?
+                        R.color.design_default_color_secondary
+                        : R.color.black)
+        );
+
         viewHolder.getTodoDataLayout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +93,7 @@ public class TodosRecyclerViewAdapter extends RecyclerView.Adapter<TodosRecycler
             }
         });
 
+        // if is after deadline, set date text color to red
         viewHolder.getDateTextView().setText(currentTodo.getFormattedDate());
         viewHolder.getDateTextView().setTextColor(
                 (!currentTodo.isDone() && currentTodo.getDate().before(new Date())) ?
